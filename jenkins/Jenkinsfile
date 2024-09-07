@@ -1,0 +1,40 @@
+pipeline
+{
+    agent any
+    {
+        stages
+        {
+            stage("repo")
+            {
+                steps
+                {
+                    deleteDir()
+                }
+            }
+            stage("clonerepo")
+            {
+                steps
+                {
+                    sh "git clone https://github.com/AnushkaGayantha/loginrepo.git"
+                }
+            }
+            stage("build")
+            {
+                steps
+                {
+                    dir("loginrepo")
+                    {
+                        sh "npm install"
+                    }
+                }
+            }
+            stage("deployee")
+            {
+                  dir("loginrepo")
+                     {
+                          sh "npm start"
+                     }
+            }
+        }
+    }
+}
